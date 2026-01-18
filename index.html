@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Get Your Stranger Things Character</title>
+
+<style>
+  @font-face {
+    font-family: "Benguiat";
+    src: url("https://fonts.cdnfonts.com/s/15008/ITCBenguiatStdBook.woff") format("woff");
+  }
+
+  body {
+    margin: 0;
+    background: black;
+    color: red;
+    font-family: "Benguiat", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+
+  h1 {
+    letter-spacing: 6px;
+    font-size: 48px;
+    text-shadow: 0 0 25px red;
+  }
+
+  p {
+    letter-spacing: 3px;
+    opacity: 0.85;
+  }
+
+  button {
+    margin-top: 25px;
+    padding: 16px 34px;
+    font-size: 14px;
+    letter-spacing: 4px;
+    background: black;
+    color: red;
+    border: 2px solid red;
+    cursor: pointer;
+    box-shadow: 0 0 25px red;
+    font-family: "Benguiat", serif;
+  }
+
+  button:hover {
+    background: red;
+    color: black;
+  }
+
+  /* CHARACTER CARD */
+  #characterBox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #card {
+    background: #0b0000;
+    border: 2px solid red;
+    padding: 25px;
+    box-shadow: 0 0 30px red;
+    max-width: 320px;
+  }
+
+  #card.rare {
+    border-color: gold;
+    box-shadow: 0 0 50px gold;
+  }
+
+  #rareTag {
+    color: gold;
+    display: none;
+    letter-spacing: 3px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  img {
+    width: 240px;
+    margin-top: 12px;
+    border: 1px solid red;
+  }
+</style>
+</head>
+
+<body>
+
+<h1>STRANGER THINGS</h1>
+<p>CLICK TO GET YOUR CHARACTER</p>
+
+<button onclick="getCharacter()">GET YOUR CHARACTER</button>
+
+<!-- CHARACTER POPUP -->
+<div id="characterBox">
+  <div id="card">
+    <div id="rareTag">👑 MOST RARE 👑</div>
+    <h2 id="charName"></h2>
+    <img id="charImg">
+    <br><br>
+    <button onclick="closeCard()">CLOSE</button>
+  </div>
+</div>
+
+<script>
+/* NORMAL CHARACTERS (USING YOUR IMAGES) */
+const normalCharacters = [
+  {
+    name: "Eleven",
+    img: "https://hips.hearstapps.com/hmg-prod/images/millie-bobby-brown-at-the-stranger-things-season-5-world-news-photo-1768072942.pjpeg?crop=0.771xw:0.551xh;0.0962xw,0.0481xh&resize=1200:*"
+  },
+  {
+    name: "Mike Wheeler",
+    img: "https://static.wikia.nocookie.net/strangerthings8338/images/c/c3/Mike_Sunset_Season_5.png/revision/latest?cb=20251128114116"
+  },
+  {
+    name: "Dustin Henderson",
+    img: "https://i.pinimg.com/736x/25/28/00/252800cf03de2e91fc5ce01257a124d8.jpg"
+  },
+  {
+    name: "Lucas Sinclair",
+    img: "https://i.pinimg.com/736x/e3/32/05/e332054b0d2f4cd0dd78d3792fc64b52.jpg"
+  },
+  {
+    name: "Max Mayfield",
+    img: "https://static.wikia.nocookie.net/strangerthings8338/images/7/73/Max_Mayfield_-_S3.png/revision/latest/scale-to-width/360?cb=20220731231457"
+  },
+  {
+    name: "Will Byers",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSVdKuoJkNRtJMcT4Yl01P3W5AUTpYiwcFcjw&s"
+  },
+  {
+    name: "Nancy Wheeler",
+    img: "https://static.wikia.nocookie.net/strangerthings8338/images/7/7f/NancyWheeler.png/revision/latest/scale-to-width/360?cb=20160819170317"
+  },
+  {
+    name: "Robin Buckley",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIWgvGVRXFMby9S_zC1aA9uRJxkT7UY_kbFA&s"
+  },
+  {
+    name: "Erica Sinclair",
+    img: "https://i.pinimg.com/736x/36/77/fb/3677fbe3593d804466bfb465f56f0d28.jpg"
+  }
+];
+
+/* MOST RARE CHARACTER */
+const mostRareCharacter = {
+  name: "Steve Harrington",
+  img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTkVRbnZbv3ir-lz-4bn_PmiiNnBnjafyG8Cg&s"
+};
+
+function getCharacter() {
+  const roll = Math.random();
+  const card = document.getElementById("card");
+  const rareTag = document.getElementById("rareTag");
+
+  let selected;
+
+  if (roll < 0.08) { // 8% chance
+    selected = mostRareCharacter;
+    card.classList.add("rare");
+    rareTag.style.display = "block";
+  } else {
+    selected = normalCharacters[Math.floor(Math.random() * normalCharacters.length)];
+    card.classList.remove("rare");
+    rareTag.style.display = "none";
+  }
+
+  document.getElementById("charName").textContent = selected.name;
+  document.getElementById("charImg").src = selected.img;
+  document.getElementById("characterBox").style.display = "flex";
+}
+
+function closeCard() {
+  document.getElementById("characterBox").style.display = "none";
+}
+</script>
+
+</body>
+</html>
